@@ -3,194 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CERO | Comunidad Pro</title>
+    <title>CERO | Next-Gen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gh-bg: #0d1117; --gh-border: #30363d; --gh-card: #161b22;
-            --gh-text: #c9d1d9; --gh-blue: #58a6ff; --gh-success: #238636;
-        }
-        body { background-color: var(--gh-bg); color: var(--gh-text); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 50px; }
-        header { background: #010409; border-bottom: 1px solid var(--gh-border); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-        #main-container { width: 95%; max-width: 700px; margin: 20px auto; }
-        
-        /* Buscador de GIFs estilo Discord */
-        .input-box { background: var(--gh-card); border: 1px solid var(--gh-border); border-radius: 6px; padding: 16px; margin-bottom: 20px; }
-        textarea { width: 100%; background: var(--gh-bg); border: 1px solid var(--gh-border); border-radius: 6px; color: white; padding: 12px; resize: none; box-sizing: border-box; font-size: 14px; margin-bottom: 10px; }
-        .gif-engine { background: #0d1117; border: 1px solid var(--gh-border); border-radius: 6px; padding: 10px; margin-bottom: 10px; }
-        #gifResults { display: flex; overflow-x: auto; gap: 8px; padding: 5px; min-height: 40px; }
-        #gifResults img { height: 90px; border-radius: 4px; cursor: pointer; transition: 0.2s; border: 2px solid transparent; }
-        #gifResults img:hover { border-color: var(--gh-blue); transform: scale(1.05); }
-        
-        /* Pestañas de Tendencias */
-        .nav-tabs { display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--gh-border); }
-        .tab { padding: 10px 5px; cursor: pointer; color: #8b949e; font-size: 14px; font-weight: 500; border-bottom: 2px solid transparent; }
-        .tab.active { color: white; border-bottom-color: #f78166; }
-        .tab i { margin-right: 5px; }
-
-        .btn-gh { background: var(--gh-success); color: white; border: 1px solid rgba(240,246,252,0.1); padding: 6px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
-        .post { background: var(--gh-card); border: 1px solid var(--gh-border); border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
-        .post-header { padding: 10px 15px; background: #1c2128; display: flex; justify-content: space-between; font-size: 12px; color: #8b949e; }
-        .post-body { padding: 15px; font-size: 15px; line-height: 1.5; }
-        .post-img { width: 100%; display: block; border-top: 1px solid var(--gh-border); }
-        .post-footer { padding: 10px 15px; display: flex; gap: 25px; border-top: 1px solid var(--gh-border); background: #161b22; }
-        .action-btn { background: none; border: none; color: #8b949e; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; }
-        .action-btn:hover { color: var(--gh-blue); }
-        .badge-trend { background: rgba(247, 129, 102, 0.1); color: #f78166; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        body { background-color: #0b0e11; color: #adbac7; }
+        .glass { background: rgba(22, 27, 34, 0.8); backdrop-filter: blur(12px); border: 1px solid #30363d; }
+        .post-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .post-card:hover { transform: translateY(-4px); border-color: #58a6ff; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased">
 
-<header>
-    <div style="display:flex; align-items:center; gap:10px;">
-        <i class="fab fa-github" style="font-size: 24px;"></i>
-        <span style="font-weight: 600;">CERO <span style="color:var(--gh-blue)">BETA</span></span>
-    </div>
-</header>
-
-<div id="main-container">
-    <div class="nav-tabs">
-        <div class="tab active" id="tab-recent" onclick="changeTab('recent')"><i class="fas fa-clock"></i> Recientes</div>
-        <div class="tab" id="tab-trending" onclick="changeTab('trending')"><i class="fas fa-fire"></i> Tendencias</div>
-    </div>
-
-    <div class="input-box">
-        <textarea id="postText" rows="3" placeholder="Suelta el beta aquí..."></textarea>
-        
-        <div class="gif-engine">
-            <div style="display:flex; gap:10px; margin-bottom:8px;">
-                <input type="text" id="gifSearch" placeholder="🔍 Buscar GIF (estilo Discord)..." 
-                       oninput="searchGiphy()" style="flex:1; background:transparent; border:none; color:white; outline:none; font-size:13px;">
+    <nav class="sticky top-0 z-50 glass py-4 px-6 mb-8">
+        <div class="max-w-2xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1 class="text-xl font-bold tracking-tighter text-white">CERO <span class="text-blue-500">ULTRA</span></h1>
             </div>
-            <div id="gifResults">
-                <span style="color:#484f58; font-size:12px;">Escribe algo para buscar GIFs...</span>
+            <div class="flex gap-4 text-gray-400">
+                <i class="fas fa-search cursor-pointer hover:text-white transition"></i>
+                <i class="fas fa-user-circle cursor-pointer hover:text-white transition"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-4">
+        <div class="glass rounded-2xl p-6 mb-8">
+            <textarea id="postText" rows="3" class="w-full bg-transparent border-none text-lg text-white placeholder-gray-500 focus:ring-0 resize-none" placeholder="¿Qué está pasando en las sombras?"></textarea>
+            
+            <div id="gifPreviewContainer" class="hidden relative mt-4">
+                <img id="gifPreview" class="rounded-xl w-full max-h-64 object-cover border-2 border-blue-500">
+                <button onclick="clearGif()" class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-800">
+                <div class="flex gap-4">
+                    <button onclick="toggleGifPicker()" class="text-gray-400 hover:text-blue-500 transition text-xl">
+                        <i class="fas fa-file-video"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-green-500 transition text-xl">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <button onclick="handlePublish()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-8 rounded-full transition-all active:scale-95 shadow-lg shadow-blue-500/20">
+                    Publicar
+                </button>
+            </div>
+
+            <div id="gifPicker" class="hidden mt-4 space-y-4">
+                <input type="text" id="gifInput" oninput="fetchGifs()" placeholder="Buscar GIFs estilo Discord..." class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2 text-white focus:border-blue-500 outline-none">
+                <div id="gifGrid" class="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto"></div>
             </div>
         </div>
 
-        <div style="display:flex; justify-content: space-between; align-items:center;">
-            <div id="selectedStatus" style="font-size:12px; color:var(--gh-blue)"></div>
-            <input type="hidden" id="tempGif">
-            <button class="btn-gh" onclick="sendPost()">Lanzar al espacio</button>
-        </div>
-    </div>
+        <div id="feed" class="space-y-6">
+            </div>
+    </main>
 
-    <div id="feed"></div>
-</div>
+    <input type="hidden" id="selectedGif">
 
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
 
-<script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBqWmGTsmfFJSy9x5ld9Rb5u9GEBBKF2FE",
-      authDomain: "venepop-b642b.firebaseapp.com",
-      databaseURL: "https://venepop-b642b-default-rtdb.firebaseio.com/",
-      projectId: "venepop-b642b",
-      storageBucket: "venepop-b642b.firebasestorage.app",
-      messagingSenderId: "257279813856",
-      appId: "1:257279813856:web:32733306545744437e8885"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    let currentTab = 'recent';
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqWmGTsmfFJSy9x5ld9Rb5u9GEBBKF2FE",
+            authDomain: "venepop-b642b.firebaseapp.com",
+            databaseURL: "https://venepop-b642b-default-rtdb.firebaseio.com/",
+            projectId: "venepop-b642b",
+            storageBucket: "venepop-b642b.firebasestorage.app",
+            messagingSenderId: "257279813856",
+            appId: "1:257279813856:web:32733306545744437e8885"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-    // BUSCADOR DE GIFS (GIPHY API)
-    async function searchGiphy() {
-        const q = document.getElementById('gifSearch').value;
-        if(q.length < 2) return;
-        
-        const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=pLPA055748SdrP9G9V49I3h4vI52YqV0&q=${q}&limit=8`);
-        const { data } = await res.json();
-        const container = document.getElementById('gifResults');
-        container.innerHTML = "";
-        
-        data.forEach(g => {
-            const img = document.createElement('img');
-            img.src = g.images.fixed_height_small.url;
-            img.onclick = () => {
-                document.getElementById('tempGif').value = g.images.original.url;
-                document.getElementById('selectedStatus').innerHTML = "✅ GIF Preparado";
-                container.innerHTML = `<img src="${g.images.fixed_height_small.url}" style="border-color:var(--gh-blue)">`;
-            };
-            container.appendChild(img);
-        });
-    }
+        // Funciones de UI
+        function toggleGifPicker() {
+            const picker = document.getElementById('gifPicker');
+            picker.classList.toggle('hidden');
+        }
 
-    function changeTab(type) {
-        currentTab = type;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(`tab-${type}`).classList.add('active');
-        renderFeed();
-    }
+        async function fetchGifs() {
+            const q = document.getElementById('gifInput').value;
+            if(q.length < 2) return;
+            const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=pLPA055748SdrP9G9V49I3h4vI52YqV0&q=${q}&limit=9`);
+            const { data } = await res.json();
+            const grid = document.getElementById('gifGrid');
+            grid.innerHTML = "";
+            data.forEach(g => {
+                const img = document.createElement('img');
+                img.src = g.images.fixed_height_small.url;
+                img.className = "rounded-lg cursor-pointer hover:opacity-80 transition";
+                img.onclick = () => {
+                    document.getElementById('selectedGif').value = g.images.original.url;
+                    document.getElementById('gifPreview').src = g.images.original.url;
+                    document.getElementById('gifPreviewContainer').classList.remove('hidden');
+                    toggleGifPicker();
+                };
+                grid.appendChild(img);
+            });
+        }
 
-    function timeAgo(f) {
-        const s = Math.floor((Date.now() - f) / 1000);
-        if(s < 60) return 'ahora';
-        if(s < 3600) return `hace ${Math.floor(s/60)}m`;
-        return `hace ${Math.floor(s/3600)}h`;
-    }
+        function clearGif() {
+            document.getElementById('selectedGif').value = "";
+            document.getElementById('gifPreviewContainer').classList.add('hidden');
+        }
 
-    async function sendPost() {
-        const txt = document.getElementById('postText').value;
-        const gif = document.getElementById('tempGif').value;
-        if(!txt && !gif) return;
+        async function handlePublish() {
+            const t = document.getElementById('postText').value;
+            const g = document.getElementById('selectedGif').value;
+            if(!t && !g) return;
+            await db.ref('posts').push({ texto: t, gif: g, likes: 0, fecha: Date.now() });
+            document.getElementById('postText').value = "";
+            clearGif();
+        }
 
-        await db.ref('posts').push({
-            texto: txt,
-            gif: gif,
-            likes: 0,
-            fecha: Date.now(),
-            vistas: 0
-        });
+        function handleLike(id) {
+            if(localStorage.getItem('L_'+id)) return;
+            db.ref('posts/'+id+'/likes').transaction(c => (c || 0) + 1);
+            localStorage.setItem('L_'+id, 'true');
+        }
 
-        document.getElementById('postText').value = "";
-        document.getElementById('tempGif').value = "";
-        document.getElementById('gifSearch').value = "";
-        document.getElementById('selectedStatus').innerHTML = "";
-        document.getElementById('gifResults').innerHTML = "Suelto para el próximo...";
-    }
-
-    function renderFeed() {
-        db.ref('posts').once('value', snap => {
+        // Renderizado Pro
+        db.ref('posts').on('value', snap => {
             const feed = document.getElementById('feed');
             feed.innerHTML = "";
             let posts = [];
-            snap.forEach(c => { posts.push({id: c.key, ...c.val()}) });
-
-            // Lógica de Tendencia: Ordenar por Likes
-            if(currentTab === 'trending') {
-                posts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-            } else {
-                posts.reverse();
-            }
-
-            posts.forEach(p => {
-                const isHot = p.likes > 5 ? '<span class="badge-trend"><i class="fas fa-bolt"></i> Trending</span>' : '';
+            snap.forEach(c => posts.push({id: c.key, ...c.val()}));
+            posts.reverse().forEach(p => {
+                const liked = localStorage.getItem('L_'+p.id) ? 'text-red-500' : 'text-gray-500';
                 feed.insertAdjacentHTML('beforeend', `
-                    <div class="post">
-                        <div class="post-header">
-                            <span><b>ANÓNIMO</b> @neo-cero • ${timeAgo(p.fecha)}</span>
-                            ${isHot}
+                    <div class="glass post-card rounded-2xl overflow-hidden border border-gray-800">
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                                    ${p.texto ? p.texto[0].toUpperCase() : 'A'}
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm">Anonimo <span class="text-blue-400">@cero_user</span></h4>
+                                    <p class="text-gray-500 text-xs">Publicado ahora</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-200 text-lg leading-relaxed">${p.texto}</p>
                         </div>
-                        <div class="post-body">${p.texto}</div>
-                        ${p.gif ? `<img src="${p.gif}" class="post-img">` : ''}
-                        <div class="post-footer">
-                            <button class="action-btn" onclick="db.ref('posts/${p.id}/likes').transaction(l=>(l||0)+1)">
-                                <i class="fas fa-heart" style="color:${p.likes > 0 ? '#f85149' : ''}"></i> ${p.likes || 0}
+                        ${p.gif ? `<img src="${p.gif}" class="w-full border-t border-gray-800">` : ''}
+                        <div class="px-6 py-4 flex gap-6 bg-gray-900/50">
+                            <button onclick="handleLike('${p.id}')" class="flex items-center gap-2 ${liked} hover:text-red-500 transition">
+                                <i class="fas fa-heart"></i> <span class="font-bold">${p.likes || 0}</span>
                             </button>
-                            <button class="action-btn" onclick="alert('Función de reporte enviada al admin')">
-                                <i class="fas fa-flag"></i>
+                            <button class="flex items-center gap-2 text-gray-500 hover:text-blue-500 transition">
+                                <i class="fas fa-comment"></i> <span class="font-bold">Debate</span>
+                            </button>
+                            <button onclick="if(prompt('Admin Key:')==='1234') db.ref('posts/${p.id}').remove()" class="ml-auto text-gray-700 hover:text-red-500 transition">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
                 `);
             });
         });
-    }
-
-    // Escuchar cambios en tiempo real
-    db.ref('posts').on('value', () => renderFeed());
-</script>
+    </script>
 </body>
 </html>
