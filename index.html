@@ -9,49 +9,50 @@
         :root { --gold: #ffcc00; --dark: #0a0a0b; }
         body, html { margin: 0; padding: 0; background-color: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; }
         
-        /* Pantalla de bloqueo (Obligatoria para que el navegador deje sonar la música) */
-        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
+        /* Pantalla de Entrada Obligatoria */
+        #bloqueo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .btn-entrar { border: 2px solid var(--gold); color: var(--gold); padding: 20px 40px; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; background: none; cursor: pointer; border-radius: 10px; transition: 0.3s; letter-spacing: 2px; }
         .btn-entrar:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); }
 
-        header { padding: 100px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://w0.peakpx.com/wallpaper/550/414/HD-wallpaper-halo-nebula-blue-galaxy-stars-space.jpg'); background-size: cover; border-bottom: 3px solid var(--gold); }
+        header { padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://w0.peakpx.com/wallpaper/550/414/HD-wallpaper-halo-nebula-blue-galaxy-stars-space.jpg'); background-size: cover; border-bottom: 2px solid var(--gold); }
         h1 { font-family: 'Orbitron', sans-serif; color: var(--gold); font-size: 2.5rem; margin: 0; text-shadow: 0 0 10px rgba(255,204,0,0.5); }
         
-        .card { background: #16161a; width: 90%; max-width: 450px; margin: -60px auto 30px; padding: 30px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
-        .avatar { width: 110px; height: 110px; border-radius: 50%; border: 4px solid var(--gold); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 50px; background: #1a1a1a; box-shadow: 0 0 20px var(--gold); }
+        .card { background: #16161a; width: 90%; max-width: 450px; margin: -50px auto 30px; padding: 30px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
+        .avatar { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--gold); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 50px; background: #1a1a1a; }
         
-        .ig-btn { display: inline-block; padding: 12px 25px; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; margin-top: 15px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; transition: 0.3s; }
-        .ig-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(220, 39, 136, 0.5); }
+        .ig-btn { display: inline-block; padding: 12px 25px; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; margin-top: 15px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; }
 
-        .stats { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+        .stats { display: flex; justify-content: center; gap: 10px; margin: 25px 0; }
         .stat-item { background: #222; padding: 15px; border-radius: 10px; border-bottom: 2px solid var(--gold); flex: 1; }
         .stat-item b { display: block; font-size: 1.4rem; color: var(--gold); font-family: 'Orbitron', sans-serif; }
 
-        .btn-panico { background: #ff4757; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-family: 'Orbitron', sans-serif; margin-top: 20px; width: 100%; box-shadow: 0 5px 15px rgba(255,71,87,0.3); }
-        footer { padding: 40px; color: #444; font-size: 0.8rem; font-family: 'Orbitron', sans-serif; }
+        .btn-panico { background: #ff4757; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-family: 'Orbitron', sans-serif; margin-top: 20px; width: 100%; }
+
+        /* Escondemos el video de YouTube */
+        #youtube-player { position: absolute; top: -9999px; left: -9999px; visibility: hidden; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div id="overlay">
-        <h1 style="color: var(--gold); font-family: 'Orbitron'; margin-bottom: 20px;">ACCESO RESTRINGIDO</h1>
-        <p style="margin-bottom: 40px; color: #888;">Cargando protocolos de pureza de Luis Ernesto...</p>
+    <div id="bloqueo">
+        <h1 style="color: var(--gold); font-family: 'Orbitron'; margin-bottom: 20px;">SISTEMA DE SEGURIDAD</h1>
+        <p style="margin-bottom: 40px; color: #888;">Escaneando niveles de castidad de Luis Ernesto...</p>
         <button class="btn-entrar" onclick="activarBroma()">VERIFICAR PUREZA</button>
     </div>
 
-    <audio id="haloMusic" loop>
-        <source src="https://ia800501.us.archive.org/15/items/HaloThemeSong/Halo%20Theme%20Song.mp3" type="audio/mpeg">
-    </audio>
+    <div id="youtube-player">
+        <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/0jXTBAGv9ZQ?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    </div>
 
     <header>
         <h1>WEB PARA VÍRGENES</h1>
-        <p style="letter-spacing: 5px; color: #ccc;">EL SANTUARIO OFICIAL</p>
+        <p style="letter-spacing: 5px; color: #ccc;">PORTAL OFICIAL DE LUIS ERNESTO</p>
     </header>
 
     <div class="card">
         <div class="avatar">🛡️</div>
         <h2 style="font-family: 'Orbitron'; color: var(--gold); margin: 0;">Luis Ernesto</h2>
-        <p style="color: #888; font-style: italic; margin-top: 5px;">"El Gran Maestro de la Orden Intocable"</p>
+        <p style="color: #888; font-style: italic; margin-top: 5px;">"El último Maestro de la Pureza"</p>
         
         <a href="https://www.instagram.com/ernesto_zwlr/" target="_blank" class="ig-btn">📸 INSTAGRAM DEL LÍDER</a>
 
@@ -61,39 +62,19 @@
             <div class="stat-item"><b>342</b>Skins LoL</div>
         </div>
 
-        <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; font-size: 0.9rem; border: 1px dashed #444;">
-            <p style="color: var(--gold); font-weight: bold; text-align: center; margin-top: 0;">📜 LEYES DE ERNESTO</p>
-            <ul style="padding-left: 20px; color: #bbb;">
-                <li>No tocarás pasto (es tóxico).</li>
-                <li>Si una chica te mira, activa el escudo de invisibilidad.</li>
-                <li>El nivel de tu cuenta es tu único valor real.</li>
-            </ul>
-        </div>
-
-        <button class="btn-panico" onclick="alert('PROTOCOLO ACTIVADO: Luis Ernesto está fingiendo un ataque de lag para no salir de casa.')">
-            🚨 BOTÓN DE PÁNICO ANTICHICAS
+        <button class="btn-panico" onclick="alert('PROTOCOLO: Luis Ernesto ha activado el camuflaje de habitación oscura.')">
+            🚨 BOTÓN DE PÁNICO
         </button>
     </div>
 
-    <p style="color: #333;">Visitante #1,452,301 | Estado: PROTEGIDO</p>
-
-    <footer>
-        © 2026 LUIS ERNESTO FOUNDATION | PRESERVANDO LA CASTEIDAD
-    </footer>
-
     <script>
         function activarBroma() {
-            var audio = document.getElementById("haloMusic");
-            audio.volume = 0.8; 
-            audio.play().then(() => {
-                console.log("Audio sonando");
-            }).catch(e => {
-                console.log("Error al sonar:", e);
-                // Si falla, intentamos otro clic
-                alert("Verificación fallida. Pulsa OK para reintentar escaneo de pureza.");
-                audio.play();
-            });
-            document.getElementById("overlay").style.display = "none";
+            // Mandamos la señal de "play" al video de YouTube
+            var iframe = document.getElementById("video");
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            
+            // Quitamos el bloqueo
+            document.getElementById("bloqueo").style.display = "none";
         }
     </script>
 
