@@ -10,15 +10,28 @@
         body, html { margin: 0; padding: 0; background-color: var(--dark-void); color: #f0f5f5; font-family: 'Orbitron', sans-serif; text-align: center; }
         
         #bloqueo { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010a13; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 4px solid var(--lol-gold); }
-        .btn-entrar { background: #1e2328; border: 2px solid var(--lol-gold); color: var(--lol-gold); padding: 15px 50px; cursor: pointer; font-family: 'Orbitron'; letter-spacing: 3px; }
+        .btn-entrar { background: #1e2328; border: 2px solid var(--lol-gold); color: var(--lol-gold); padding: 15px 50px; cursor: pointer; font-family: 'Orbitron'; letter-spacing: 3px; transition: 0.3s; }
+        .btn-entrar:hover { background: var(--lol-gold); color: black; box-shadow: 0 0 20px var(--lol-gold); }
 
         header { padding: 40px; background: linear-gradient(rgba(1,10,19,0.8), rgba(1,10,19,0.9)), url('https://static.invenglobal.com/upload/image/2018/11/19/i1542661073831828.jpeg'); border-bottom: 2px solid var(--lol-gold); }
         
-        .container { max-width: 900px; margin: 20px auto; padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .container { max-width: 950px; margin: 20px auto; padding: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
 
-        .profile-card { background: #091428; border: 2px solid var(--lol-gold); padding: 30px; border-radius: 5px; width: 300px; }
+        /* EFECTO CARTA LEGENDARIA */
+        .profile-card { 
+            background: #091428; 
+            border: 2px solid var(--lol-gold); 
+            padding: 30px; 
+            border-radius: 10px; 
+            width: 300px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            cursor: help;
+        }
+        .profile-card:hover {
+            transform: translateY(-10px) rotateY(10deg);
+            box-shadow: 0 0 50px rgba(200, 155, 60, 0.4);
+        }
         
-        /* CONTENEDOR DE LA IMAGEN REPARADO */
         .avatar-frame { 
             width: 180px; height: 180px; 
             margin: 0 auto 20px; 
@@ -28,23 +41,52 @@
             box-shadow: 0 0 20px var(--lol-gold);
             background: #000;
             display: flex; align-items: center; justify-content: center;
-        }
-        .avatar-img { 
-            width: 100%; height: 100%; 
-            object-fit: cover; /* Esto hace que la foto de tu amigo no se estire */
+            position: relative;
         }
 
+        /* Brillo de carta legendaria */
+        .avatar-frame::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -150%; }
+            100% { left: 150%; }
+        }
+
+        .avatar-img { width: 100%; height: 100%; object-fit: cover; }
+
         .ig-link { display: block; margin-top: 15px; padding: 12px; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.8rem; }
+        
+        /* CONTADOR SIN PASTO */
+        .timer-box {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--lol-blue);
+            padding: 10px;
+            margin-top: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--lol-blue);
+        }
+
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .mc-block { background: #222; border: 2px solid var(--lol-gold); padding: 10px; }
         .mc-block span { display: block; font-family: 'Press Start 2P'; color: #38e038; font-size: 0.8rem; }
-        .panic-btn { background: #780a0a; color: white; border: 2px solid red; padding: 15px; width: 100%; cursor: pointer; font-family: 'Press Start 2P'; font-size: 0.6rem; }
+        
+        .panic-btn { background: #222; color: #ff4757; border: 2px solid #ff4757; padding: 15px; width: 100%; cursor: pointer; font-family: 'Press Start 2P'; font-size: 0.6rem; transition: 0.3s; }
+        .panic-btn:hover { background: #ff4757; color: white; }
     </style>
 </head>
 <body>
 
     <div id="bloqueo">
-        <h2 style="color: var(--lol-gold); font-family: 'Press Start 2P'; font-size: 0.8rem;">SISTEMA CARGANDO...</h2>
+        <h2 style="color: var(--lol-gold); font-family: 'Press Start 2P'; font-size: 0.8rem; margin-bottom: 20px;">SISTEMA CARGANDO...</h2>
         <button class="btn-entrar" onclick="iniciar()">ENTRAR AL SANTUARIO</button>
     </div>
 
@@ -60,7 +102,13 @@
                 <img src="amigo.PNG" alt="Luis Ernesto" class="avatar-img">
             </div>
             <h2 style="margin: 0; color: var(--lol-gold); font-size: 1.1rem;">LUIS ERNESTO</h2>
-            <p style="font-size: 0.7rem; color: #888;">LVL 99 - MAGO DE LA VIRGINIDAD</p>
+            <p style="font-size: 0.7rem; color: #888; margin-top: 5px;">LVL 99 - ARCHIMAGO</p>
+            
+            <div class="timer-box">
+                TIEMPO SIN TOCAR PASTO:<br>
+                <span id="contador">00:00:00</span>
+            </div>
+
             <a href="https://www.instagram.com/ernesto_zwlr/" target="_blank" class="ig-link">📸 INSTAGRAM</a>
         </div>
 
@@ -70,18 +118,42 @@
                 <div class="mc-block"><span>0%</span><p style="font-size: 0.5rem;">SOCIAL</p></div>
                 <div class="mc-block"><span>342</span><p style="font-size: 0.5rem;">SKINS LOL</p></div>
             </div>
-            <div style="background: rgba(10,20,40,0.9); border: 1px solid var(--lol-blue); padding: 20px; text-align: left; font-size: 0.8rem;">
-                <p style="color: var(--lol-blue); font-weight: bold;">📜 QUEST: MANTENER VIRGINIDAD</p>
-                <p>- No tocar pasto.<br>- No desinstalar el LoL.<br>- Dormir con la PC encendida.</p>
+            <div style="background: rgba(10,20,40,0.9); border: 1px solid var(--lol-blue); padding: 20px; text-align: left; font-size: 0.8rem; border-radius: 5px;">
+                <p style="color: var(--lol-blue); font-weight: bold; border-bottom: 1px solid var(--lol-blue); padding-bottom: 5px;">📜 QUEST: MANTENER VIRGINIDAD</p>
+                <ul style="padding-left: 15px; line-height: 1.8;">
+                    <li>No tocar bloques de pasto (Grasa detected).</li>
+                    <li>Si una mujer te saluda, reportarla por hack.</li>
+                    <li>El nivel de tu cuenta es tu único valor real.</li>
+                </ul>
             </div>
-            <button class="panic-btn" onclick="alert('PROTOCOLO DE EMERGENCIA: LUIS ERNESTO ESTÁ HUYENDO DE UNA MUJER.')">🚨 BOTÓN DE PÁNICO</button>
+            <button class="panic-btn" onclick="alert('PROTOCOLO: Luis Ernesto ha activado el camuflaje de habitación oscura.')">🚨 BOTÓN DE PÁNICO</button>
         </div>
     </div>
 
     <script>
+        // Iniciar música y quitar bloqueo
         function iniciar() {
             document.getElementById("halo").play();
             document.getElementById("bloqueo").style.display = "none";
+            startTimer();
+        }
+
+        // Contador de tiempo real
+        function startTimer() {
+            let segundos = 0;
+            const display = document.getElementById('contador');
+            
+            setInterval(() => {
+                segundos++;
+                let hrs = Math.floor(segundos / 3600);
+                let mins = Math.floor((segundos % 3600) / 60);
+                let secs = segundos % 60;
+                
+                display.innerText = 
+                    (hrs < 10 ? "0" + hrs : hrs) + ":" + 
+                    (mins < 10 ? "0" + mins : mins) + ":" + 
+                    (secs < 10 ? "0" + secs : secs);
+            }, 1000);
         }
     </script>
 </body>
